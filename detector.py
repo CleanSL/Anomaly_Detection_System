@@ -13,4 +13,19 @@ def check_for_anomalies():
         
         violations = house['violation_count']
         
-        has_complaint = True
+        has_complaint = True 
+
+    if days_since >= 14 and has_complaint and violations > 3:
+        print(f"🚨 RED (Critical): House {house['id']} at {house['street_address']}")
+
+    elif (has_complaint and violations > 3) or (days_since >= 14 and has_complaint):
+        print(f"⚠️ YELLOW (Warning): House {house['id']} needs investigation.")
+
+    elif days_since <= 7:
+        print(f"✅ GREEN (No Anomaly): House {house['id']} is up to date.")
+
+    else:
+        print(f"⚪ NEUTRAL: House {house['id']} is between 8-13 days with no complaints.")
+
+if __name__ == "__main__":
+    check_for_anomalies()
