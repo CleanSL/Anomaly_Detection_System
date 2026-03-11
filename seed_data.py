@@ -25,6 +25,12 @@ def seed_supabase():
             "street_address": "Main_St", 
             "violation_count": 4,
             "last_collection_at": (datetime.now(timezone.utc) - timedelta(days=10)).isoformat()
+        },
+        {
+            "id": "00000000-0000-0000-0000-000000000103",
+            "street_address": "Main_St",
+            "violation_count": 4,
+            "last_collection_at": (datetime.now(timezone.utc) - timedelta(days=15)).isoformat()
         }
     ]
     test_complaints = [
