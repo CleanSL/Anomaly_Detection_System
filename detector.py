@@ -1,5 +1,15 @@
+from fastapi import FastAPI, HTTPException
 from database_setup import supabase
 from datetime import datetime, timezone
+import uvicorn
+
+app = FastAPI(title="CleanSL Anomaly API")
+
+@app.get("/anomalies")
+def get_anomaly_report():
+    # Fetch all address data from Supabase
+    response = supabase.table("addresses").select("*").execute()
+    addresses = response.dat
 
 def check_for_anomalies():
     response = supabase.table("addresses").select("*").execute()
@@ -65,4 +75,4 @@ def check_for_anomalies():
         print(f"[{r['status']}] Score: {r['score']} | House: {r['id']} ({r['street']})")
 
 if __name__ == "__main__":
-    check_for_anomalies()
+    uvicorn.run(app, host="0.0.0.0", port=8000)
