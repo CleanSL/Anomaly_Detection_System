@@ -1,5 +1,9 @@
+from fastapi import FastAPI, HTTPException
 from database_setup import supabase
 from datetime import datetime, timezone
+import uvicorn
+
+app = FastAPI(title="CleanSL Anomaly API"
 
 def check_for_anomalies():
     response = supabase.table("addresses").select("*").execute()
