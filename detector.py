@@ -17,6 +17,10 @@ def check_for_anomalies():
         house_id = house['id']
         street = house['street_address']
 
+        if not house.get("last_collection_at"):
+            print(f"Skipping house {house_id} - missing last_collection_at")
+            continue
+
         last_date = datetime.fromisoformat(house['last_collection_at'].replace('Z', '+00:00'))
         days_since = (datetime.now(timezone.utc) - last_date).days
         
@@ -29,8 +33,9 @@ def check_for_anomalies():
             .execute()
         
         complaint_count = len(comp_res.data)
+        has_complaint = complaint_count > 0
+
         score = (days_since * 2) + (violations * 5) + (complaint_count * 10)
-        has_complaint = len(comp_res.data) > 0
         
     status = "NEUTRAL"
     if days_since >= 14 and has_complaint and violations > 3:
@@ -46,7 +51,10 @@ def check_for_anomalies():
             "id": house_id,
             "street": street,
             "status": status,
-            "score": score
+            "score": score,
+            "days_since": days_since,
+            "violations": violations,
+            "complaint_count": complaint_count
         })
     
     results.sort(key=lambda x: x['score'], reverse=True)
