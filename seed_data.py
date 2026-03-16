@@ -32,6 +32,12 @@ def seed_supabase():
             "violation_count": 4,
             "last_collection_at": (datetime.now(timezone.utc) - timedelta(days=15)).isoformat()
         }
+        {
+            "id": "00000000-0000-0000-0000-000000000104",
+            "street_address": "Side_St",
+            "violation_count": 0,
+            "last_collection_at": (datetime.now(timezone.utc) - timedelta(days=3)).isoformat()
+        }
     ]
     test_complaints = [
        {
@@ -39,6 +45,13 @@ def seed_supabase():
         "address_id": None, 
         "location_name": "Main_St",
         "complaint_text": "Massive illegal heap near the intersection.",
+        "status": "pending"
+    }
+    {
+        "resident_id": user_id,
+        "address_id": "00000000-0000-0000-0000-000000000103",
+        "location_name": "Main_St",
+        "complaint_text": "Garbage pile reported near this house.",
         "status": "pending"
     }
     ]
