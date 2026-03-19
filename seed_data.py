@@ -31,7 +31,7 @@ def seed_supabase():
             "street_address": "Main_St",
             "violation_count": 4,
             "last_collection_at": (datetime.now(timezone.utc) - timedelta(days=15)).isoformat()
-        }
+        },
         {
             "id": "00000000-0000-0000-0000-000000000104",
             "street_address": "Side_St",
@@ -46,7 +46,7 @@ def seed_supabase():
         "location_name": "Main_St",
         "complaint_text": "Massive illegal heap near the intersection.",
         "status": "pending"
-    }
+    },
     {
         "resident_id": user_id,
         "address_id": "00000000-0000-0000-0000-000000000103",
